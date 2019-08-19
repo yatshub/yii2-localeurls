@@ -156,6 +156,11 @@ class UrlManager extends BaseUrlManager
     public $geoIpLanguageCountries = [];
 
     /**
+     * @var int redirect code
+     */
+    public $statusCode = 301;
+
+    /**
      * @var \yii\web\Request
      */
     protected $_request;
@@ -625,7 +630,7 @@ class UrlManager extends BaseUrlManager
             return;
         }
         Yii::trace("Redirecting to $url.", __METHOD__);
-        Yii::$app->getResponse()->redirect($url);
+        Yii::$app->getResponse()->redirect($url, $this->statusCode);
         if (YII2_LOCALEURLS_TEST) {
             // Response::redirect($url) above will call `Url::to()` internally.
             // So to really test for the same final redirect URL here, we need
